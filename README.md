@@ -5,7 +5,7 @@ Make math expressions with trees
 
 ## Getting Started
 ```
-    git clone https://github.com/spboyle/math-trees
+    git clone https://github.com/KTMath/math-trees.git
     cd math-trees
     pip install -r requirements_dev.txt
     python setup.py develop

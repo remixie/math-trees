@@ -14,8 +14,8 @@ setup_requirements = [ ]
 test_requirements = [ ]
 
 setup(
-    author="Sean Boyle",
-    author_email='sean.boyle@pearson.com',
+    author="KT Math",
+    author_email='nikki.semmelroth@pearson.com',
     python_requires='>=3.5',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -37,7 +37,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/spboyle/math-trees',
+    url='https://github.com/KTMath/math-trees.git',
     version='0.1.0',
     zip_safe=False,
 )
