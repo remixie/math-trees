@@ -54,7 +54,7 @@ class Node:
         self.children = [None, None]
 
     def __str__(self):
-        return self.value + ("?" if self.in_paren else "")
+        return self.value
 
 
 # Step 1: Create a data structure which can represent math expressions
@@ -110,25 +110,23 @@ def asciiToInfix(ascii):
 def treeToString(root):  # first turn the tree into a regular string
     st = ""
 
-    if root.in_paren:
-        st += "( "
     if root.children[0]:
         st += treeToString(root.children[0]) + " "
 
     # use the built in __str__ method of the class Node
-    st += str(root).replace("?", "")
+    st += str(root)
 
     if root.children[1]:
         st += " "+treeToString(root.children[1])
 
     if root.in_paren:
-        st += " )"
-    return st
+        return "( " + st + " )"
+    else:
+        return st
 
 
-# turn the string into binary or decimal depending on the to_binary flag
 def stringToAscii(st, to_binary=True):
-
+    # turn the string into binary or decimal depending on the to_binary flag
     if to_binary:
         return ''.join(format(ord(x), '08b') for x in st)
     else:
