@@ -49,6 +49,9 @@ class Node:
         self.value = value
         self.children = [None, None]
 
+    def __str__(self):
+        return self.value
+
 
 # Step 1: Create a data structure which can represent math expressions
 def makeExpressionTree(postfix):
@@ -97,3 +100,26 @@ def asciiToInfix(ascii):
         infix += chr(byte)
 
     return infix
+
+
+# Step 4: Implement a __str__ method which converts your data structure into an ascii string equivalent
+def treeToString(root):  # first turn the tree into a regular string
+    st = ""
+    if root.children[0]:
+        st += treeToString(root.children[0]) + " "
+
+    st += str(root)  # use the built in __str__ method of the class Node
+
+    if root.children[1]:
+        st += " "+treeToString(root.children[1])
+
+    return st
+
+
+# turn the string into binary or decimal depending on the to_binary flag
+def stringToAscii(st, to_binary=True):
+
+    if to_binary:
+        return ''.join(format(ord(x), '08b') for x in st)
+    else:
+        return ' '.join(format(ord(x)) for x in st)

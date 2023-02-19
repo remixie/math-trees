@@ -2,7 +2,7 @@
 
 import unittest
 
-from math_trees.math_trees import convertToPostfix, makeExpressionTree, evaluate, asciiToInfix
+from math_trees.math_trees import convertToPostfix, makeExpressionTree, evaluate, asciiToInfix, treeToString, stringToAscii
 
 
 class TestMathTrees(unittest.TestCase):
@@ -19,6 +19,13 @@ class TestMathTrees(unittest.TestCase):
         tree = makeExpressionTree(postfix)
         answer = evaluate(tree)
         self.assertEqual(answer, 31)
+
+    def test_standalone_operand(self):
+        math_string = "10"
+        postfix = convertToPostfix(math_string)
+        tree = makeExpressionTree(postfix)
+        answer = evaluate(tree)
+        self.assertEqual(answer, 10)
 
     def test_sub_and_divide(self):
         math_string = "8 - 9 / 3"
@@ -44,3 +51,21 @@ class TestMathTrees(unittest.TestCase):
         tree = makeExpressionTree(postfix)
         # check if the tree was made correctly for step 3
         self.assertEqual(tree.value, "/")
+
+    def test_tree_to_binary_ascii(self):
+        math_string = "20 / 10 * 14 + 2"
+        postfix = convertToPostfix(math_string)
+        tree = makeExpressionTree(postfix)
+        st = treeToString(tree)
+        ascii = stringToAscii(st)
+        self.assertEqual(
+            ascii, "00110010001100000010000000101111001000000011000100110000001000000010101000100000001100010011010000100000001010110010000000110010")
+
+    def test_tree_to_decimal_ascii(self):
+        math_string = "20 / 10 * 14 + 2"
+        postfix = convertToPostfix(math_string)
+        tree = makeExpressionTree(postfix)
+        st = treeToString(tree)
+        ascii = stringToAscii(st, False)
+        self.assertEqual(
+            ascii, "50 48 32 47 32 49 48 32 42 32 49 52 32 43 32 50")
