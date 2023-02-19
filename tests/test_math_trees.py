@@ -69,3 +69,12 @@ class TestMathTrees(unittest.TestCase):
         ascii = stringToAscii(st, False)
         self.assertEqual(
             ascii, "50 48 32 47 32 49 48 32 42 32 49 52 32 43 32 50")
+
+    def test_parenthesis_in_tree(self):
+        math_string = "20 / 10 * ( ( 1 + 3 ) + 2 )"
+        postfix = convertToPostfix(math_string)
+        tree = makeExpressionTree(postfix)
+        st = treeToString(tree)
+        ascii = stringToAscii(st, False)
+        self.assertEqual(
+            ascii, "50 48 32 47 32 49 48 32 42 32 40 32 40 32 49 32 43 32 51 32 41 32 43 32 50 32 41")

@@ -24,16 +24,19 @@ def convertToPostfix(infix):
         # begin adding values to postfix and remove from the stack
         elif char == ')':
             while stack[-1] != '(':
-                postfix += stack.pop() + " "
+                v = stack.pop()
+                if v in order:
+                    v += "?"  # add a ? to operators inside parentheses to keep track of terms
+                postfix += v + " "
             stack.pop()
 
         # if the current character is not an operator
-        elif char not in order.keys():
+        elif char.replace("?", "") not in order.keys():
             postfix += char + " "
 
         # if the current character IS an operator
         else:
-            while stack and order[char] >= order[stack[-1]]:
+            while stack and order[char.replace("?", "")] >= order[stack[-1]]:
                 postfix += stack.pop() + " "
 
             stack.append(char)
@@ -46,11 +49,12 @@ def convertToPostfix(infix):
 
 class Node:
     def __init__(self, value):
-        self.value = value
+        self.in_paren = "?" in value
+        self.value = value.replace("?", "")
         self.children = [None, None]
 
     def __str__(self):
-        return self.value
+        return self.value + ("?" if self.in_paren else "")
 
 
 # Step 1: Create a data structure which can represent math expressions
@@ -61,7 +65,7 @@ def makeExpressionTree(postfix):
     postfix = postfix.split(' ')
 
     for char in postfix:
-        if char not in order:
+        if char.replace("?", "") not in order:
             stack.append(Node(char))
 
         else:
@@ -105,14 +109,20 @@ def asciiToInfix(ascii):
 # Step 4: Implement a __str__ method which converts your data structure into an ascii string equivalent
 def treeToString(root):  # first turn the tree into a regular string
     st = ""
+
+    if root.in_paren:
+        st += "( "
     if root.children[0]:
         st += treeToString(root.children[0]) + " "
 
-    st += str(root)  # use the built in __str__ method of the class Node
+    # use the built in __str__ method of the class Node
+    st += str(root).replace("?", "")
 
     if root.children[1]:
         st += " "+treeToString(root.children[1])
 
+    if root.in_paren:
+        st += " )"
     return st
 
 
