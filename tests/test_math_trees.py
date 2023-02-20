@@ -27,6 +27,13 @@ class TestMathTrees(unittest.TestCase):
         answer = evaluate(tree)
         self.assertEqual(answer, 10)
 
+    def test_floating_point(self):
+        math_string = "1.23 - 3.21"
+        postfix = convertToPostfix(math_string)
+        tree = makeExpressionTree(postfix)
+        answer = evaluate(tree)
+        self.assertEqual(answer, -1.98)
+
     def test_sub_and_divide(self):
         math_string = "8 - 9 / 3"
         postfix = convertToPostfix(math_string)

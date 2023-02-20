@@ -82,7 +82,7 @@ def makeExpressionTree(postfix):
 def evaluate(root):  # Step 2: Implement an evaluation method which calculates the value of the expression
     val = root.value
     if val not in order:
-        return int(val)
+        return float(val)
 
     else:
         left, right = evaluate(root.children[0]), evaluate(root.children[1])
